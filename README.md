@@ -197,7 +197,7 @@ connection.end();
 
 #### Date de remise 
 
-<code> Le 01/02/2016 à 12h00 CET</code>
+<code> Le 23/01/2017 à 8h00 CET</code>
 
 ### Documentation et lien uties
 - [NodeJS](https://nodejs.org/api/)
