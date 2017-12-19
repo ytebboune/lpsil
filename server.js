@@ -27,7 +27,7 @@ app.get('/ping', function(req, res){
     res.render('pong');
 });
 
-app.listen(1313);
+app.listen(process.env.PORT||1313);
 
 
 
