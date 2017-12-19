@@ -25,6 +25,8 @@ app.get('/login', function(req, res){
 
 app.get('/ping', function(req, res){
     res.send('pong');
+    res.writeHead(200);
+res.end('Salut tout le monde !');
 });
 
 app.listen(process.env.PORT||1313);
