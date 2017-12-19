@@ -23,6 +23,10 @@ app.get('/login', function(req, res){
     res.render('login');
 });
 
+app.get('/ping', function(req, res){
+    res.render('pong');
+});
+
 app.listen(1313);
 
 
