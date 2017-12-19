@@ -24,7 +24,6 @@ app.get('/login', function(req, res){
 });
 
 app.get('/ping', function(req, res){
-    res.send('pong');
     res.send('Salut tout le monde !');
 });
 
