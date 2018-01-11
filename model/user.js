@@ -1,13 +1,18 @@
-var db = require("../db.js");
+var sequelize = require('../db.js');
 const Sequelize = require('sequelize');
-const User = db.define('clients', {
-    email: Sequelize.STRING,
-    password: Sequelize.STRING
-});
 
-db.authenticate().then(function(){
-    console.log("Connected"); })
-    .catch(function(err){
-        console.log("Unable to connec : " +err); }).done();
+const User = sequelize.define('clients', {
+        email: Sequelize.STRING,
+        password: Sequelize.STRING
+    }
+    , {
+        tableName : 'clients',
+        createdAt : 'sys_created',
+        updatedAt : 'sys_modified',
+        deletedAt : false,
+        freezeTableName: true
+    });
+
+User.sync();
 
 module.exports = User;
