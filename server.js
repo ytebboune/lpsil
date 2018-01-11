@@ -50,7 +50,7 @@ app.get('/register', function(req, res){
     res.render('register');
 });
 
-app.post("/registering", function(req, res) {
+app.post("/register", function(req, res) {
     var objBD = sequelize;
 
     var post = {
