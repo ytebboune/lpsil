@@ -25,8 +25,7 @@ var userController = require("./controller/user.js");
 // config
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
-app.use(bootstrap);
-app.use($);
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(morgan('combined')); // Active le middleware de logging
 
