@@ -23,11 +23,12 @@ app.get('/login', function(req, res){
     res.render('login');
 });
 
+app.get('/register', function(req, res){
+    res.render('register');
+});
+
 app.get('/ping', function(req, res){
     res.send('Salut tout le monde !');
 });
 
 app.listen(process.env.PORT||1313);
-
-
-

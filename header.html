@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=utf-8 />
+    <title>Store Bonbon</title>
+</head>
+<header>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js" ></script>
+
+    <link rel="stylesheet" media="screen" href="css/style.css" >
+<script type="text/javascript">
+    $(function() {
+
+        $('#login-form-link').click(function(e) {
+            $("#login-form").delay(100).fadeIn(100);
+            $("#register-form").fadeOut(100);
+            $('#register-form-link').removeClass('active');
+            $(this).addClass('active');
+        });
+        $('#register-form-link').click(function(e) {
+            $("#register-form").delay(100).fadeIn(100);
+            $("#login-form").fadeOut(100);
+            $('#login-form-link').removeClass('active');
+            $(this).addClass('active');
+        });
+
+    });
+    validateMdp2 = function(e) {
+        var mdp1 = document.getElementById('mdp1');
+        var mdp2 = document.getElementById('mdp2');
+        if (mdp1.value == mdp2.value ) {
+            // ici on supprime le message d'erreur personnalisé, et du coup mdp2 devient valide.
+            document.getElementById('mdp2').setCustomValidity('');
+        } else {
+            // ici on ajoute un message d'erreur personnalisé, et du coup mdp2 devient invalide.
+            document.getElementById('mdp2').setCustomValidity('Les mots de passes doivent être égaux.');
+        }
+    }
+
+    computeAge = function(e) {
+        try{
+            // j'affiche dans la console quelques objets javascript, ce qui devrait vous aider.
+            var dateAuj = Date.now();
+            var dateAnniv = Date.parse(document.getElementById("birthdate").valueAsDate);
+            age = dateAuj - dateAnniv;
+            age=age/31536000000;
+            age = age-((age/4)*0.0027322404371585);
+            document.getElementById("age").value = Math.floor(age);
+//                        console.log(new Date(0).getYear());
+//                        console.log(new Date(65572346585).getYear());
+            // modifier ici la valeur de l'élément age
+        } catch(e) {
+            // supprimez ici la valeur de l'élément age
+            document.getElementById("age").value = "";
+        }
+    }
+
+</script>
+</header>
+<body>
+<div class="container">
+
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <ul class="nav navbar-nav">
+                <li> <a href="main.php">Accueil</a> </li>
+                <li> <a href="inscription.php">Catégories</a> </li>
+                <li> <a href="paint.php">Panier</a> </li>
+            </ul>
+                <form class="navbar-form navbar-right inline-form" action="logout.php" method="post" name="logout">
+                    <div class="form-group">
+                    <input type="submit" class="btn btn-primary btn-sm" value="Se déconnecter">
+                    </div>
+                </form>
+        </div>
+    </nav>
+</div>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-login">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <a href="#" class="active" id="login-form-link">Login</a>
+                        </div>
+                        <div class="col-xs-6">
+                            <a href="#" id="register-form-link">Register</a>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <form id="login-form" action="req_login.php" method="post" role="form" style="display: block;">
+                                <div class="form-group">
+                                    <input type="email" name="mail" id="mail" tabindex="1" class="form-control" placeholder="Email" value="">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" name="pwd" id="pwd" tabindex="2" class="form-control" placeholder="Mot de passe">
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-6 col-sm-offset-3">
+                                            <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Log In">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+
+
+                            <form id="register-form"  method="post" role="form" style="display: none;">
+                                <span class="required_notification">Les champs obligatoires sont indiqués par *</span>
+                                <div class="form-group">
+                                        <label for="email">E-mail :</label>
+                                        <input class="form-control" type="email" name="email" id="email" autofocus required/>
+                                        <span class="form_hint">Format attendu "name@something.com"</span>
+                                </div>
+                                <div class="form-group">
+                                        <label for="mdp1">Mot de passe :</label>
+                                        <input class="form-control" type="password" name="password" id="mdp1" pattern="[A-Za-z0-9]{6,8}" onkeyup="validateMdp2()"  title = "Le mot de passe doit contenir de 6 à 8 caractères alphanumériques." placeholder="Indiquez votre mot de passe" required>
+
+                                        <span class="form_hint">De 6 à 8 caractères alphanumériques.</span>
+                                </div>
+
+                                <div class="form-group">
+                                        <label for="mdp2">Confirmez mot de passe :</label>
+                                        <input class="form-control" type="password" id="mdp2" required onkeyup="validateMdp2()" placeholder="Les mots de passes doivent être identiques" required>
+                                        <span class="form_hint">Les mots de passes doivent être égaux.</span>
+
+                                </div>
+
+                                <div class="form-group">
+                                        <label for="birthdate">Date de naissance:</label>
+                                        <input class="form-control" type="date" name="birthdate" id="birthdate" placeholder="JJ/MM/AAAA" required onchange="computeAge()"/>
+
+                                        <span class="form_hint">Format attendu "JJ/MM/AAAA"</span>
+                                </div>
+
+                                <div class="form-group">
+                                        <label for="age">Age:</label>
+                                        <input class="form-control" type="number" name="age" id="age" disabled/>
+                                </div>
+
+
+                                <div class="form-group">
+                                        <label for="prenomRegister">Prénom :</label>
+                                        <input class="form-control" type="text" name="prenomRegister" id="prenomRegister" placeholder="Quel est ton prénom?" required />
+                                </div>
+
+                                <div class="form-group">
+                                                        <label for="nomRegister">Nom :</label>
+                                        <input class="form-control" type="text" name="nomRegister" id="nomRegister" />
+                                </div>
+
+                                <div class="form-group">
+                                        <label for="tel">Numéro de téléphone :</label>
+                                        <input class="form-control" type="tel" name="tel" id="tel" />
+                                </div>
+
+                                <div class="form-group">
+                                        <label for="website">Site web :</label>
+                                        <input class="form-control" type="url" name="website" id="website" />
+                                </div>
+
+                                <div class="form-group">
+                                        <label for="ville">Ville :</label>
+                                        <input class="form-control" type="text" name="ville" id="ville" />
+                                </div>
+
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-6 col-sm-offset-3">
+                                            <input class="form-control" type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Register Now">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
