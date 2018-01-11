@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize('database', 'username', 'password', {
+const sequelize = new Sequelize({
     dialect: 'mysql',
     database: 'ecommerce',
     username: 'root',
@@ -7,4 +7,12 @@ const sequelize = new Sequelize('database', 'username', 'password', {
     host: 'localhost'
 });
 
+// sequelize.connect(function(err) {
+//     if (err) throw err;
+//     console.log("Connected!");
+//     sequelize.query(sql, function (err, result) {
+//         if (err) throw err;
+//         console.log("Result: " + result);
+//     });
+// });
 module.exports = sequelize;
