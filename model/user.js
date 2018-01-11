@@ -1,6 +1,6 @@
 var db = require("../db.js");
 const Sequelize = require('sequelize');
-const User = db.define('user', {
+const User = db.define('clients', {
     email: Sequelize.STRING,
     password: Sequelize.STRING
 });
