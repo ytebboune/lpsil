@@ -49,5 +49,6 @@ app.get('/ping', function(req, res){
 });
 
 app.post('/create', userController);
+app.post('/loginVerif', userController);
 
 app.listen(process.env.PORT||1313);

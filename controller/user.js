@@ -1,33 +1,23 @@
-var user = require("../model/user.js");
+var client = require("../model/user.js");
 
-module.exports = function(req, res){
+module.exports = function (req, res) {
+        var email = req.body.email;
+        var password = req.body.password;
 
-    var email = req.body.email;
-    var password = req.body.password;
-
-
-    var client = user.build({
+    client.create({
         email: email,
         password: password
+    }).then(function (clients) {
+        if(email == '' || password == '' )
+            throw new Error('Veuillez renseigner une e-mail');
+        console.log('Data successfully inserted', clients);
+        res.render('index', {title: 'index', name:email});
+
+    }).catch(function (error) {
+        console.log('Error in Inserting Record', error);
+        res.render('error', {title:'error', error: error});
     });
 
-    client.save().complete(function (err) {
-        if (err) {
-            console.log('Error in Inserting Record');
-        } else {
-            console.log('Data successfully inserted');
-        }
-    });
 
-//Other way: Immediate insertion of data into database
-//     Sequelize.sync().success(function () {
-//         user.create({
-//             id: 2,
-//             name:'Cell Phone',
-//             description: 'Sony',
-//             qty: 20
-//         }).success(function (data) {
-//             console.log(data.values)
-//         })
-//     });
+
 };
