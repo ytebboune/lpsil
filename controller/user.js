@@ -1,5 +1,4 @@
 var user = require("../model/user.js");
-const Sequelize = require('sequelize');
 
 module.exports = function(req, res){
 
@@ -11,7 +10,7 @@ module.exports = function(req, res){
         email: email,
         password: password
     });
-//Inserting Data into database
+
     client.save().complete(function (err) {
         if (err) {
             console.log('Error in Inserting Record');
