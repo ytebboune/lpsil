@@ -51,13 +51,14 @@ app.post("/registering", function(req, res) {
         password: req.body.password
     };
 
-    objBD.query('INSERT INTO clients VALUES ?', post, function(error) {
+    objBD.query('INSERT INTO clients VALUES ?', post, function (error) {
         if (error) {
             console.log(error.message);
         } else {
             console.log('success');
         }
     });
+});
 
 app.get('/ping', function(req, res){
     res.send('Salut tout le monde !');
