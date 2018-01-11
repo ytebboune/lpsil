@@ -1,18 +1,34 @@
 var user = require("../model/user.js");
+const Sequelize = require('sequelize');
 
 module.exports = function(req, res){
 
-    var post = {
-        email: req.body.email,
-        password: req.body.password
-    };
+    var email = req.body.email;
+    var password = req.body.password;
 
-    user.query('INSERT INTO clients VALUES ?', post, function (error) {
-        if (error) {
-            console.log(error.message);
+
+    var client = user.build({
+        email: email,
+        password: password
+    });
+//Inserting Data into database
+    client.save().complete(function (err) {
+        if (err) {
+            console.log('Error in Inserting Record');
         } else {
-            console.log('success');
+            console.log('Data successfully inserted');
         }
     });
-    return res;
+
+//Other way: Immediate insertion of data into database
+//     Sequelize.sync().success(function () {
+//         user.create({
+//             id: 2,
+//             name:'Cell Phone',
+//             description: 'Sony',
+//             qty: 20
+//         }).success(function (data) {
+//             console.log(data.values)
+//         })
+//     });
 };
