@@ -4,15 +4,6 @@ var logger = require('log4js').getLogger('Server');
 var bodyParser = require('body-parser');
 var app = express();
 var mysql = require('mysql');
-var jsdom = require("jsdom").jsdom;
-jsdom.env("", function(err, window) {
-    if (err) {
-        console.error(err);
-        return;
-    }
-    global.$ = require("jquery")(window);
-});
-var bootstrap = require('bootstrap');
 
 // var con = mysql.createConnection({
 //     host: "localhost",
