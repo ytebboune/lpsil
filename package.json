@@ -6,10 +6,12 @@
               "bunyan": "^1.8.12",
               "ejs": "^2.3.4",
               "express": "^4.16.2",
+              "express-generator": "^4.15.5",
               "log4js": "^0.6.29",
               "mocha": "^4.0.1",
               "morgan": "^1.6.1",
               "mysql": "^2.15.0",
+              "mysql2": "^1.5.1",
               "sequelize": "^4.31.0",
               "serve-favicon": "^2.3.0"
        },

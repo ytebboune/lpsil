@@ -1,4 +1,4 @@
-var user = require("model/user.js");
+var user = require("../model/user.js");
 
 module.exports = function(req, res){
 
@@ -14,4 +14,5 @@ module.exports = function(req, res){
             console.log('success');
         }
     });
+    return res;
 };

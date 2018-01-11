@@ -19,7 +19,7 @@ var mysql = require('mysql');
 //         console.log("Result: " + result);
 //     });
 // });
-var userController = require("controller/user.js");
+var userController = require("./controller/user.js");
 
 // config
 app.set('view engine', 'ejs');
@@ -43,7 +43,6 @@ app.get('/login', function(req, res){
 app.get('/register', function(req, res){
     res.render('register');
 });
-
 
 app.get('/ping', function(req, res){
     res.send('Salut tout le monde !');

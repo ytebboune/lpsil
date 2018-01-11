@@ -1,6 +1,7 @@
-var db = require("db.js");
-const user = db.define('user', {
+var db = require("../db.js");
+const Sequelize = require('sequelize');
+const User = db.define('user', {
     username: Sequelize.STRING,
     password: Sequelize.STRING
 });
-module.exports = user;
+module.exports = User;
