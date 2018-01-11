@@ -48,7 +48,7 @@ app.get('/ping', function(req, res){
     res.send('Salut tout le monde !');
 });
 
-app.post('/create', userController);
-app.post('/loginVerif', userController);
+app.post('/create', userController.inscription);
+app.post('/loginVerif', userController.login);
 
 app.listen(process.env.PORT||1313);
