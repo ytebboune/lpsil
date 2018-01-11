@@ -19,13 +19,7 @@ var mysql = require('mysql');
 //         console.log("Result: " + result);
 //     });
 // });
-
-const sequelize = new Sequelize('database', 'username', 'password', {
-    dialect: 'mysql',
-    username: 'root',
-    password: 'root',
-    host: 'localhost'
-});
+var userController = require("controller/user.js");
 
 // config
 app.set('view engine', 'ejs');
@@ -50,26 +44,11 @@ app.get('/register', function(req, res){
     res.render('register');
 });
 
-app.post("/register", function(req, res) {
-    var objBD = sequelize;
-
-    var post = {
-        username: req.body.username,
-        password: req.body.password
-    };
-
-    objBD.query('INSERT INTO clients VALUES ?', post, function (error) {
-        if (error) {
-            console.log(error.message);
-        } else {
-            console.log('success');
-        }
-    });
-});
 
 app.get('/ping', function(req, res){
     res.send('Salut tout le monde !');
 });
 
+app.post('/create', userController);
 
 app.listen(process.env.PORT||1313);
