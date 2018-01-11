@@ -60,9 +60,9 @@ app.post("/registering", function(req, res) {
     });
 });
 
-app.get('/ping', function(req, res){
-    res.send('Salut tout le monde !');
-});
+// app.get('/ping', function(req, res){
+//     res.send('Salut tout le monde !');
+// });
 
 
 app.listen(process.env.PORT||1313);
