@@ -4,20 +4,27 @@ var logger = require('log4js').getLogger('Server');
 var bodyParser = require('body-parser');
 var app = express();
 var mysql = require('mysql');
-var con = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "root",
-    database: 'ecommerce'
-});
+// var con = mysql.createConnection({
+//     host: "localhost",
+//     user: "root",
+//     password: "root",
+//     database: 'ecommerce'
+// });
+//
+// con.connect(function(err) {
+//     if (err) throw err;
+//     console.log("Connected!");
+//     con.query(sql, function (err, result) {
+//         if (err) throw err;
+//         console.log("Result: " + result);
+//     });
+// });
 
-con.connect(function(err) {
-    if (err) throw err;
-    console.log("Connected!");
-    con.query(sql, function (err, result) {
-        if (err) throw err;
-        console.log("Result: " + result);
-    });
+const sequelize = new Sequelize('database', 'username', 'password', {
+    dialect: 'mysql',
+    username: 'root',
+    password: 'root',
+    host: 'localhost'
 });
 
 // config
@@ -44,7 +51,7 @@ app.get('/register', function(req, res){
 });
 
 app.post("/registering", function(req, res) {
-    var objBD = con;
+    var objBD = sequelize;
 
     var post = {
         username: req.body.username,
@@ -60,9 +67,9 @@ app.post("/registering", function(req, res) {
     });
 });
 
-// app.get('/ping', function(req, res){
-//     res.send('Salut tout le monde !');
-// });
+app.get('/ping', function(req, res){
+    res.send('Salut tout le monde !');
+});
 
 
 app.listen(process.env.PORT||1313);
