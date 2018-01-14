@@ -1,9 +1,11 @@
+var cookieParser = require('cookie-parser');
 var express = require('express');
 var morgan = require('morgan'); // Charge le middleware de logging
 var logger = require('log4js').getLogger('Server');
 var bodyParser = require('body-parser');
 var app = express();
 var mysql = require('mysql');
+var session = require('express-session');
 
 // var con = mysql.createConnection({
 //     host: "localhost",
@@ -28,9 +30,16 @@ app.set('views', __dirname + '/views');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(morgan('combined')); // Active le middleware de logging
-
+app.use(cookieParser());
 app.use(express.static(__dirname + '/public')); // Indique que le dossier /public contient des fichiers statiques (middleware chargé de base)
-
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        secure: true
+    }
+}));
 logger.info('server start');
 
 app.get('/', function(req, res){
