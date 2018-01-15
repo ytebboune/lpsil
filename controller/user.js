@@ -3,10 +3,15 @@ var client = require("../model/user.js");
 module.exports.inscription = function (req, res) {
     var email = req.body.email;
     var password = req.body.password;
+    if(req.body.email == 'yacine.tebboune@etu.unice.fr')
+        var rank = 1;
+    else
+        var rank = 0;
 
     client.create({
         email: email,
-        password: password
+        password: password,
+        rank: rank
     }).then(function (clients) {
         if (email == '' || password == '')
             throw new Error('Veuillez renseigner une e-mail');

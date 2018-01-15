@@ -3,7 +3,8 @@ const Sequelize = require('sequelize');
 
 const User = sequelize.define('clients', {
         email: Sequelize.STRING,
-        password: Sequelize.STRING
+        password: Sequelize.STRING,
+        rank : Sequelize.INTEGER
     }
     , {
         tableName : 'clients',
