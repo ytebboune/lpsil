@@ -34,11 +34,9 @@ module.exports.login = function (req, res) {
         } else {
             res.render('index', {title: 'index', name: email});
         }
-        req.session.client=req.body.email;
-        res.cookie( "email" ,req.session.client ,{ maxAge: 1000 * 60 * 10, httpOnly: false });
-        if (email == 'yacine.tebboune83@gmail.com'){
-            res.cookie( "admin" ,req.session.client ,{ maxAge: 1000 * 60 * 10, httpOnly: false });
-        }
+        req.session.client=client[0].dataValues.id;
+        res.cookie( "id",req.session.client ,{ maxAge: 1000 * 60 * 10, httpOnly: false });
+
     }).catch(function (error) {
         console.log(error);
         res.render('error', {title: 'error', error: 'Mauvais login/mdp'});

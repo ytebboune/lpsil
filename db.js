@@ -3,7 +3,7 @@ const sequelize = new Sequelize({
     dialect: 'mysql',
     database: 'ecommerce',
     username: 'root',
-    password: '',
+    password: 'root',
     host: 'localhost'
 });
 

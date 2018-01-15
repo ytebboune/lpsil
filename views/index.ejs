@@ -19,15 +19,10 @@ Accés au <a href="/profile">/profil</a>
 <p id="adm">Bonjour </p>
 
       <script>
-
-  if(document.cookie){
-      var s= document.getElementById("userName");
-      var k= document.getElementById("adm");
-
-      s.value = document.cookie.replace('email=','');
-      k.value = document.cookie.replace('admin=','');
-      $("#userName").append(s.value);
-      $("#adm").append(k.value);
-  }
+          if(document.cookie) {
+              var s = document.getElementById("userName");
+              s.value = document.cookie.replace(/name=|;|id=|/g, '');
+              $("#userName").append(s.value);
+          }
 </script>
 <% include foot %>
