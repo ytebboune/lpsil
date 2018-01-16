@@ -10,6 +10,11 @@
 
 $(document).ready(function(){
     $(".adm").hide();
+    if (gcookie("rank") == 1) {
+
+        $(".adm").show();
+    }
+
     $(function () {
 		$.scrollUp({
 	        scrollName: 'scrollUp', // Element ID
