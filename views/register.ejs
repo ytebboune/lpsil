@@ -1,28 +1,24 @@
 <% var title = 'Formulaire register' %>
 <% include head %>
 
-<h1>register</h1>
-Accés au <a href="/profile">/profil</a>
-<form method="post" action="/create">
-  <p>
-    <label>Email:</label>
-    <input type="text" name="email">
-  </p>
-  <p>
-    <label>Nom:</label>
-    <input type="text" name="nom">
-  </p>
-  <p>
-    <label>Prenom:</label>
-    <input type="text" name="prenom">
-  </p>
-  <p>
-    <label>Password:</label>
-    <input type="text" name="password">
-  </p>
-  <p>
-    <input type="submit" value="Register">
-  </p>
-</form>
+<section id="form"><!--form-->
+  <div class="container">
+      <div class="row">
+          <div class="col-sm-4">
+              <div class="signup-form"><!--sign up form-->
+                  <h2>New User Signup!</h2>
+                  <p>Accés au <a href="/profile">profil</a></p>
+                  <form method="post" action="/create">
+                      <input type="email" name="email" placeholder="Email"/>
+                      <input type="text" name="nom" placeholder="Nom"/>
+                      <input type="text" name="prenom" placeholder="Prenom"/>
+                      <input type="password" name="password" placeholder="Password"/>
+                      <button type="submit" value="Register" class="btn btn-default">Signup</button>
+                  </form>
+              </div><!--/sign up form-->
+          </div>
+      </div>
+  </div>
+</section><!--/form-->
 
 <% include foot %>

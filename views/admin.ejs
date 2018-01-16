@@ -1,20 +1,22 @@
 <% var title = 'Formulaire login' %>
 <% include head %>
 
-<h1>Login</h1>
-Accés au <a href="/profile">/profil</a>
-<form method="post" action="/adminVerif">
-    <p>
-        <label>Username:</label>
-        <input type="text" name="email">
-    </p>
-    <p>
-        <label>Password:</label>
-        <input type="text" name="password">
-    </p>
-    <p>
-        <input type="submit" value="Login">
-    </p>
-</form>
+<section id="form"><!--form-->
+  <div class="container">
+      <div class="row">
+          <div class="col-sm-4 col-sm-offset-1">
+              <div class="login-form"><!--login form-->
+                  <h2>Login to your account</h2>
+                  <p>Accés au <a href="/profile">profil</a></p>
+                  <form method="post" action="/adminVerif">
+                      <input type="text" name="email" placeholder="Username"/>
+                      <input type="text" name="password" placeholder="Password" />
+                      <button type="submit" value="Login" class="btn btn-default">Login</button>
+                  </form>
+              </div><!--/login form-->
+          </div>
+      </div>
+  </div>
+</section><!--/form-->
 
 <% include foot %>
