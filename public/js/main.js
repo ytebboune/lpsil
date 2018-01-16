@@ -28,3 +28,28 @@ $(document).ready(function(){
 		});
 	});
 });
+
+function gcookie(name)
+{
+    if(document.cookie.length>0)
+    {
+        start=document.cookie.indexOf(name+"=");
+        pos = start+name.length+1;
+        if(start!=0)
+        {
+            start=document.cookie.indexOf("; "+name+"=");
+            pos = start+name.length+3;
+        }
+        if(start!=-1)
+        {
+            start=pos;
+            end=document.cookie.indexOf(";",start);
+            if(end==-1)
+            {
+                end=document.cookie.length;
+            }
+            return decodeURI(document.cookie.substring(start,end));
+        }
+    }
+    return '';
+}

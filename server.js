@@ -1,4 +1,6 @@
 var cookieParser = require('cookie-parser');
+// var session = require('cookie-session'); // Charge le middleware de sessions
+
 var express = require('express');
 var morgan = require('morgan'); // Charge le middleware de logging
 var logger = require('log4js').getLogger('Server');
@@ -7,21 +9,6 @@ var app = express();
 var mysql = require('mysql');
 var session = require('express-session');
 
-// var con = mysql.createConnection({
-//     host: "localhost",
-//     user: "root",
-//     password: "root",
-//     database: 'ecommerce'
-// });
-//
-// con.connect(function(err) {
-//     if (err) throw err;
-//     console.log("Connected!");
-//     con.query(sql, function (err, result) {
-//         if (err) throw err;
-//         console.log("Result: " + result);
-//     });
-// });
 var userController = require("./controller/user.js");
 var produitController = require("./controller/produit.js");
 

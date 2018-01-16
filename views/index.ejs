@@ -66,7 +66,7 @@
                             <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
                             <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
                             <li><a href="login"><i class="fa fa-lock"></i> Login</a></li>
-                            <li><a href="admin"><i class="fa fa-lock"></i> Admin</a></li>
+                            <li class="adm"><a href="admin"><i class="fa fa-lock"></i> Admin</a></li>
                         </ul>
                     </div>
                 </div>
@@ -1058,11 +1058,14 @@ Accés au <a href="/admin">/pannel admin</a>
   <p id="userName">Bonjour </p>
 <p id="adm">Bonjour </p>
 
-      <script>
-          if(document.cookie) {
-              var s = document.getElementById("userName");
-              s.value = document.cookie.replace(/name=|;|id=|/g, '');
-              $("#userName").append(s.value);
-          }
+<script>
+
+    if(document.cookie){
+        var s= document.getElementById("userName");
+        s.value = gcookie("id");
+        $("#userName").append(s.value);
+        if(gcookie("rank")!=1)
+            $(".adm").hide();
+    }
 </script>
 <% include foot %>

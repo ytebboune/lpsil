@@ -37,3 +37,7 @@ module.exports.supprimerProduit = function (req, res) {
     });
 };
 
+module.exports.listerProduits = function(req, res){
+    var listeProduits = produit.findAll();
+}
+

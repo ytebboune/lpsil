@@ -37,13 +37,21 @@ module.exports.login = function (req, res) {
         }
     }).then(function (client) {
         console.log('', client);
+        req.session.clientid=client.dataValues.id;
+        req.session.clientrank = client.dataValues.rank;
+        req.session.clientnom = client.dataValues.nom;
+        req.session.clientrank = client.dataValues.rank;
+
+        console.log(req.session.client);
+        res.cookie( "id",req.session.clientid ,{ maxAge: 1000 * 60 * 10, httpOnly: false });
+        res.cookie( "rank",req.session.clientrank ,{ maxAge: 1000 * 60 * 10, httpOnly: false });
+
         if(!client){
             res.render('error', {title: 'error', error: 'Mauvais login/mdp'});
         } else {
             res.render('index', {title: 'index', name: email});
         }
-        // req.session.client=client[0].dataValues.id;
-        // res.cookie( "id",req.session.client ,{ maxAge: 1000 * 60 * 10, httpOnly: false });
+
 
     }).catch(function (error) {
         console.log(error);
