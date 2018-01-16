@@ -4,6 +4,8 @@ const Sequelize = require('sequelize');
 const User = sequelize.define('clients', {
         email: Sequelize.STRING,
         password: Sequelize.STRING,
+        nom : Sequelize.STRING,
+        prenom : Sequelize.STRING,
         rank : Sequelize.INTEGER
     }
     , {

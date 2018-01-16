@@ -23,6 +23,7 @@ var session = require('express-session');
 //     });
 // });
 var userController = require("./controller/user.js");
+var produitController = require("./controller/produit.js");
 
 // config
 app.set('view engine', 'ejs');
@@ -50,6 +51,17 @@ app.get('/login', function(req, res){
     res.render('login');
 });
 
+app.get('/index', function(req, res){
+    res.render('index');
+});
+
+app.get('/profile', function(req, res){
+    res.render('profile');
+});
+
+app.get('/admin', function(req, res){
+    res.render('admin');
+});
 app.get('/register', function(req, res){
     res.render('register');
 });
@@ -60,5 +72,8 @@ app.get('/ping', function(req, res){
 
 app.post('/create', userController.inscription);
 app.post('/loginVerif', userController.login);
+app.post('/adminVerif', userController.admin);
+app.post('/pannelAddProduct', produitController.ajouterProduit);
+app.post('/pannelDelProduct', produitController.supprimerProduit);
 
 app.listen(process.env.PORT||1313);

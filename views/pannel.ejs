@@ -1,0 +1,35 @@
+<% var title = 'Pannel administration' %>
+<% include head %>
+
+<h1>Login</h1>
+Accés au <a href="/profile">/profil</a>
+<form method="post" action="/pannelAddProduct">
+    <p>
+        <label>Ajouter un produit :</label
+    </p>
+    <p>
+        <label> Nom du produit : </label>
+        <input type="text" name="nomProduit">
+    </p>
+        <label> Prix du produit :</label>
+        <input type="number" name="prixProduit">
+    </p>
+    <input type="submit" value="Ajouter le produit">
+</form>
+
+<p>
+    <form method="post" action="/pannelDelProduct">
+    <p>
+        <label>Supprimer un produit:</label>
+
+    </p>
+    <p>
+        <label> Identifiant du produit</label>
+        <input type="number" name="idProduit">
+    </p>
+    <p>
+        <input type="submit" value="Supprimer">
+    </p>
+</form>
+
+<% include foot %>
