@@ -1,3 +1,5 @@
+<% var title = 'Page accueil' %>
+
 <% include head %>
 
 <section id="slider"><!--slider-->
@@ -299,12 +301,7 @@
 
 <% include foot %>
 
-<script src="js/jquery.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/jquery.scrollUp.min.js"></script>
-<script src="js/price-range.js"></script>
-<script src="js/jquery.prettyPhoto.js"></script>
-<script src="js/main.js"></script>
+
 
 <h1>Home</h1>
 Accés au <a href="/profile">/profil</a>
@@ -323,17 +320,19 @@ Accés au <a href="/admin">/pannel admin</a>
       <!--s.value = document.cookie.replace('name=','');-->
       <!--$("#bienvenue").append(s.value);-->
   <!--}-->
+
   <p id="userName">Bonjour </p>
 <p id="adm">Bonjour </p>
 
 <script>
 
-    if(document.cookie){
-        var s= document.getElementById("userName");
+    if(document.cookie) {
+        var s = document.getElementById("userName");
         s.value = gcookie("id");
         $("#userName").append(s.value);
-        if(gcookie("rank")!=1)
-            $(".adm").hide();
+        if (gcookie("rank") == 1) {
+
+            $(".adm").show();
+        }
     }
 </script>
-

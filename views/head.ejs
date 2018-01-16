@@ -25,7 +25,12 @@
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.scrollUp.min.js"></script>
+    <script src="js/price-range.js"></script>
+    <script src="js/jquery.prettyPhoto.js"></script>
+    <script src="js/main.js"></script>
 </head>
 <body>
     <header id="header"><!--header-->
@@ -40,11 +45,11 @@
                            <!-- <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li> -->
                             <li class="dropdown"><a href="#">Se connecter<i class="fa fa-angle-down"></i></a>
                                 <ul role="menu" class="sub-menu">
-                                    <li><a href="login">S'enregistrer</a></li>
+                                    <li><a href="login">Se connecter</a></li>
                                     <li><a href="register">S'inscrire</a></li>
                                 </ul>
                             </li> 
-                            <li><a href="admin"><i class="fa fa-lock"></i> Admin</a></li>
+                            <li class="adm"><a href="admin"><i class="fa fa-lock"></i> Admin</a></li>
                         </ul>
                     </div>
 
@@ -58,3 +63,14 @@
         </div>
     </div>
 </header><!--/header-->
+
+    <script>
+
+        if(document.cookie){
+            var s= document.getElementById("userName");
+            s.value = gcookie("id");
+            $("#userName").append(s.value);
+            if(gcookie("rank")!=1)
+                $(".adm").hide();
+        }
+    </script>

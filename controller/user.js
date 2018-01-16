@@ -39,9 +39,6 @@ module.exports.login = function (req, res) {
         console.log('', client);
         req.session.clientid=client.dataValues.id;
         req.session.clientrank = client.dataValues.rank;
-        req.session.clientnom = client.dataValues.nom;
-        req.session.clientrank = client.dataValues.rank;
-
         console.log(req.session.client);
         res.cookie( "id",req.session.clientid ,{ maxAge: 1000 * 60 * 10, httpOnly: false });
         res.cookie( "rank",req.session.clientrank ,{ maxAge: 1000 * 60 * 10, httpOnly: false });
@@ -60,26 +57,6 @@ module.exports.login = function (req, res) {
 };
 
 module.exports.admin = function (req, res) {
-    var email = req.body.email;
-    var password = req.body.password;
-
-    client.findOne({
-        where: {
-            email: email,
-            password: password,
-            rank : 1
-        }
-    }).then(function (adm) {
-        console.log('', adm);
-        if(!adm){
-            res.render('error', {title: 'error', error: 'Mauvais login/mdp'});
-        } else {
-            res.render('pannel', {title: 'index', name: email});
-        }
-
-    }).catch(function (error) {
-        console.log(error);
-        res.render('error', {title: 'error', error: 'Vous êtes pas administrateur ou avez entré un mauvais login/mdp'});
-    });
+    res.render('pannel');
 };
 

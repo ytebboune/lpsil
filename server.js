@@ -49,6 +49,7 @@ app.get('/profile', function(req, res){
 app.get('/admin', function(req, res){
     res.render('admin');
 });
+
 app.get('/register', function(req, res){
     res.render('register');
 });

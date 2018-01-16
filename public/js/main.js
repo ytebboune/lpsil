@@ -9,7 +9,8 @@
 /*scroll to top*/
 
 $(document).ready(function(){
-	$(function () {
+    $(".adm").hide();
+    $(function () {
 		$.scrollUp({
 	        scrollName: 'scrollUp', // Element ID
 	        scrollDistance: 300, // Distance from top/bottom before showing element (px)

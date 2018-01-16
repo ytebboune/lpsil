@@ -1,4 +1,4 @@
-<% var title = 'Formulaire login' %>
+<% var title = 'Pannel administration' %>
 <% include head %>
 
 <section id="form"><!--form-->
@@ -6,12 +6,8 @@
       <div class="row">
           <div class="col-sm-4 col-sm-offset-1">
               <div class="login-form"><!--login form-->
-                  <h2>Login to your account</h2>
-                  <p>Accés au <a href="/profile">profil</a></p>
                   <form method="post" action="/adminVerif">
-                      <input type="text" name="email" placeholder="Username"/>
-                      <input type="text" name="password" placeholder="Password" />
-                      <button type="submit" value="Login" class="btn btn-default">Login</button>
+                      <button type="submit" value="Login" class="btn btn-default">Accéder au pannel</button>
                   </form>
               </div><!--/login form-->
           </div>
