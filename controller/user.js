@@ -32,16 +32,6 @@ module.exports.inscription = function (req, res) {
         }).then(function (clients) {
             if (email == '' || password == '')
                 throw new Error('Veuillez renseigner les informations');
-            req.session.clientmail = email;
-            req.session.clientnom = nom;
-            req.session.clientprenom = prenom;
-            req.session.clientrank = rank;
-
-            console.log(req.session.client);
-            res.cookie("rank", req.session.clientrank, {maxAge: 1000 * 60 * 10, httpOnly: false});
-            res.cookie("prenom", req.session.clientnom, {maxAge: 1000 * 60 * 10, httpOnly: false});
-            res.cookie("nom", req.session.clientprenom, {maxAge: 1000 * 60 * 10, httpOnly: false});
-            res.cookie("mail", req.session.clientmail, {maxAge: 1000 * 60 * 10, httpOnly: false});
             res.redirect('index');
 
         }).catch(function (error) {
