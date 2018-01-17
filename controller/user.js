@@ -4,27 +4,32 @@ module.exports.inscription = function (req, res) {
     var password = req.body.password;
     var nom = req.body.nom;
     var prenom = req.body.prenom;
-    if(req.body.email == 'yacine.tebboune@etu.unice.fr')
+    if (req.body.email == 'yacine.tebboune@etu.unice.fr')
         var rank = 1;
     else
         var rank = 0;
+    if (email != null && password != null) {
+        client.create({
+            email: email,
+            nom: nom,
+            prenom: prenom,
+            password: password,
+            rank: rank
+        }).then(function (clients) {
+            if (email == '' || password == '')
+                throw new Error('Veuillez renseigner les informations');
+            console.log('Data successfully inserted', clients);
+            res.render('index', {title: 'index', name: email});
 
-    client.create({
-        email: email,
-        nom : nom,
-        prenom : prenom,
-        password: password,
-        rank: rank
-    }).then(function (clients) {
-        if (email == '' || password == '')
-            throw new Error('Veuillez renseigner les informations');
-        console.log('Data successfully inserted', clients);
-        res.render('index', {title: 'index', name: email});
-
-    }).catch(function (error) {
-        console.log('Error in Inserting Record', error);
-        res.render('error', {title: 'error', error: "Veuillez renseigner les informations d'inscriptions", error2 : "Retournez vous inscrire pour saisir une bonne fois pour toute des identifiants corrects !"});
-    });
+        }).catch(function (error) {
+            console.log('Error in Inserting Record', error);
+            res.render('error', {
+                title: 'error',
+                error: "Veuillez renseigner les informations d'inscriptions",
+                error2: "Retournez vous inscrire pour saisir une bonne fois pour toute des identifiants corrects !"
+            });
+        });
+    }
 };
 module.exports.login = function (req, res) {
     var email = req.body.email;
@@ -84,4 +89,45 @@ module.exports.modif = function(req, res){
         })
     };
 
+module.exports.adminUser = function(req, res){
+    var email = req.body.email;
+    var nom = req.body.nom;
+    var prenom = req.body.prenom;
+    var password = req.body.password;
+    var id = req.body.id;
 
+    client.update({
+            email : email,
+            password : password,
+            nom : nom,
+            prenom : prenom
+        },
+        {
+            where : {
+                id : id
+            }}).then(function(client){
+        res.render('user');
+    })
+};
+
+module.exports.modifierUser = function (req, res) {
+    var email = req.body.email;
+    var nom = req.body.nom;
+    var prenom = req.body.prenom;
+    var password = req.body.password;
+
+    client.update({
+        email: email,
+        nom: nom,
+        prenom: prenom,
+        password: password
+/*    }).then(function (clients) {
+        if (nomProduit == '' || prixProduit == null)
+            throw new Error('Veuillez renseigner un produit.');
+        console.log('Data successfully inserted', produits);
+        res.render('pannel', {title: '', name: 'Produit ajouté'});
+    }).catch(function (error) {
+        console.log('Error in Inserting Record', error);
+        res.render('error', {title: 'error', error: error});*/
+    })
+};
