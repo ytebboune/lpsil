@@ -63,5 +63,6 @@ app.post('/loginVerif', userController.login);
 app.post('/adminVerif', userController.admin);
 app.post('/pannelAddProduct', produitController.ajouterProduit);
 app.post('/pannelDelProduct', produitController.supprimerProduit);
+app.post('/modifProfil', userController.modif);
 
 app.listen(process.env.PORT||1313);

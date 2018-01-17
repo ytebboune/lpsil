@@ -14,6 +14,10 @@ $(document).ready(function(){
 
         $(".adm").show();
     }
+    $(".prof").hide();
+    if(gcookie("id")){
+        $(".prof").show();
+    }
 
     $(function () {
 		$.scrollUp({

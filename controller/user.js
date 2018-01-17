@@ -38,10 +38,16 @@ module.exports.login = function (req, res) {
     }).then(function (client) {
         console.log('', client);
         req.session.clientid=client.dataValues.id;
+        req.session.clientmail=client.dataValues.email;
+        req.session.clientnom=client.dataValues.nom;
+        req.session.clientprenom=client.dataValues.prenom;
         req.session.clientrank = client.dataValues.rank;
         console.log(req.session.client);
         res.cookie( "id",req.session.clientid ,{ maxAge: 1000 * 60 * 10, httpOnly: false });
         res.cookie( "rank",req.session.clientrank ,{ maxAge: 1000 * 60 * 10, httpOnly: false });
+        res.cookie( "prenom",req.session.clientnom ,{ maxAge: 1000 * 60 * 10, httpOnly: false });
+        res.cookie( "nom",req.session.clientprenom ,{ maxAge: 1000 * 60 * 10, httpOnly: false });
+        res.cookie( "mail",req.session.clientmail ,{ maxAge: 1000 * 60 * 10, httpOnly: false });
 
         if(!client){
             res.render('error', {title: 'error', error: 'Mauvais login/mdp'});
@@ -59,4 +65,26 @@ module.exports.login = function (req, res) {
 module.exports.admin = function (req, res) {
     res.render('pannel');
 };
+
+module.exports.modif = function(req, res){
+    var email = req.body.email;
+    var nom = req.body.nom;
+    var prenom = req.body.prenom;
+    var password = req.body.password;
+    var id = req.body.id;
+
+    client.update({
+        email : email,
+        password : password,
+        nom : nom,
+        prenom : prenom
+    },
+        {
+        where : {
+            id : id
+        }}).then(function(client){
+            res.render('profile');
+        })
+    };
+
 

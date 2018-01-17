@@ -1,8 +1,46 @@
 <% var title = 'Compte' %>
 <% include head %>
-
+<form method="post" action="/modifProfil">
+    <input type="hidden" id="idC" name="id"/>
     <p>
-        <label>Username:</label>
-        <label id="mailC"></label>
+    <label>Email:</label>
+    <input type="text" id="mailC" name="email"/>
     </p>
+    <p>
+    <label>Nom:</label>
+    <input type="text" id="nomC" name="nom"/>
+    </p>
+    <p>
+    <label>Prenom:</label>
+    <input type="text" id="prenomC" name="prenom"/>
+    </p>
+    <p>
+    <label>Nouveau mot de passe :</label>
+    <input type="password" id="passwordC" name="password"/>
+    </p>
+        <p>
+    <input type="submit" value="Changer les informations">
+    </p>
+</form>
+
+<script>
+    if(document.cookie) {
+        var mail = document.getElementById("mailC");
+        mail.value = gcookie("mail");
+        mail.value = mail.value.replace('%40','@');
+        $("#mailC").append(mail.value);
+
+        var nom = document.getElementById("nomC");
+        nom.value = gcookie("nom");
+        $("#nomC").append(nom.value);
+
+        var id = document.getElementById("idC");
+        id.value = gcookie("id");
+        $("#idC").append(id.value);
+
+        var prenom = document.getElementById("prenomC");
+        prenom.value = gcookie("prenom");
+        $("#prenomC").append(prenom.value);
+    }
+</script>
 
