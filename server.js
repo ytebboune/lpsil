@@ -62,7 +62,7 @@ app.post('/loginVerif', userController.login);
 app.post('/adminVerif1', userController.admin);
 app.post('/adminVerif2', userController.adminUser);
 app.post('/pannelModifyUser', userController.modifierUser);
-/*app.post('/pannelDelUser', userController.supprimerUser);*/
+app.post('/pannelDelUser', userController.supprimerUser);
 app.post('/pannelAddProduct', produitController.ajouterProduit);
 app.post('/pannelDelProduct', produitController.supprimerProduit);
 app.post('/modifProfil', userController.modif);
