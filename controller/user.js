@@ -17,13 +17,13 @@ module.exports.inscription = function (req, res) {
         rank: rank
     }).then(function (clients) {
         if (email == '' || password == '')
-            throw new Error('Veuillez renseigner une e-mail');
+            throw new Error('Veuillez renseigner les informations');
         console.log('Data successfully inserted', clients);
         res.render('index', {title: 'index', name: email});
 
     }).catch(function (error) {
         console.log('Error in Inserting Record', error);
-        res.render('error', {title: 'error', error: error});
+        res.render('error', {title: 'error', error: "Veuillez renseigner les informations d'inscriptions", error2 : "Retournez vous inscrire pour saisir une bonne fois pour toute des identifiants corrects !"});
     });
 };
 module.exports.login = function (req, res) {
@@ -50,15 +50,12 @@ module.exports.login = function (req, res) {
         res.cookie( "mail",req.session.clientmail ,{ maxAge: 1000 * 60 * 10, httpOnly: false });
 
         if(!client){
-            res.render('error', {title: 'error', error: 'Mauvais login/mdp'});
+            res.render('error', {title: 'error', error: 'Mauvais login/mdp', error2 : "Reconnectez vous et saisissez une bonne fois pour toute des identifiants corrects !"});
         } else {
             res.render('index', {title: 'index', name: email});
         }
-
-
     }).catch(function (error) {
-        console.log(error);
-        res.render('error', {title: 'error', error: 'Mauvais login/mdp'});
+        res.render('error', {title: 'error', error: 'Mauvais login/mdp', error2 : "Reconnectez vous et saisissez une bonne fois pour toute des identifiants corrects !"});
     });
 };
 
