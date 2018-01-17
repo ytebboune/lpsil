@@ -15,15 +15,15 @@ $(document).ready(function(){
         $(".adm").show();
     }
     $(".prof").hide();
-    if(gcookie("id")){
+    if(gcookie("email")){
         $(".prof").show();
     }
 
     $('.disconnect').hide();
-    if(gcookie('id'))
+    if(gcookie('email'))
         $(".disconnect").show();
     $('.dropdown').show();
-    if(gcookie('id'))
+    if(gcookie('email'))
         $(".dropdown").hide();
 
     $(function () {

@@ -3,7 +3,7 @@ var produit = require("../model/produit.js");
 var sequelize = require('../db.js');
 
 module.exports.inscription = function (req, res) {
-    var alreadyUsed;
+    var alreadyUsed = false;
     var email = req.body.email;
     var password = req.body.password;
     var nom = req.body.nom;
@@ -12,16 +12,18 @@ module.exports.inscription = function (req, res) {
         var rank = 1;
     else
         var rank = 0;
-    client.findOne({
-        where: {
-            email: email
+    function isIdUnique (email) {
+        return client.count({ where: { email: email } })
+            .then(function(count){
+            if (count != 0) {
+            return false;
         }
-    }).then(function (){
-        alreadyUsed = true;
+        return true;
     });
-    if (email != '' && password != '' && !alreadyUsed) {
-
-        client.create({
+    }
+        isIdUnique(email).then(function(isUnique){
+            if (isUnique) {
+            client.create({
             email: email,
             nom: nom,
             prenom: prenom,
@@ -30,7 +32,16 @@ module.exports.inscription = function (req, res) {
         }).then(function (clients) {
             if (email == '' || password == '')
                 throw new Error('Veuillez renseigner les informations');
-            console.log('Data successfully inserted', clients);
+            req.session.clientmail = email;
+            req.session.clientnom = nom;
+            req.session.clientprenom = prenom;
+            req.session.clientrank = rank;
+
+            console.log(req.session.client);
+            res.cookie("rank", req.session.clientrank, {maxAge: 1000 * 60 * 10, httpOnly: false});
+            res.cookie("prenom", req.session.clientnom, {maxAge: 1000 * 60 * 10, httpOnly: false});
+            res.cookie("nom", req.session.clientprenom, {maxAge: 1000 * 60 * 10, httpOnly: false});
+            res.cookie("mail", req.session.clientmail, {maxAge: 1000 * 60 * 10, httpOnly: false});
             res.redirect('index');
 
         }).catch(function (error) {
@@ -42,7 +53,14 @@ module.exports.inscription = function (req, res) {
             });
         });
     }
-};
+    else
+        res.render('error', {
+            title: 'error',
+            error: "Utilisateur déjà existant",
+            error2: "Retournez vous inscrire pour saisir une bonne fois pour toute des identifiants corrects !"
+        });
+})};
+
 module.exports.login = function (req, res) {
     var email = req.body.email;
     var password = req.body.password;
@@ -89,7 +107,7 @@ module.exports.login = function (req, res) {
 
 module.exports.admin = function (req, res) {
     sequelize.query("SELECT * FROM `produits`", {type: sequelize.QueryTypes.SELECT})
-        .then(function(listeProduit) {
+        .then(function (listeProduit) {
             res.render("pannel", {req: req, listeProduit: listeProduit});
         });
 
@@ -110,19 +128,19 @@ module.exports.modif = function (req, res) {
 
         req.session.userrank = client.dataValues.rank;
     });
-    if(req.body.email == "")
+    if (req.body.email == "")
         var email = req.session.usermail;
     else
         var email = req.body.email;
-    if(req.body.nom == "")
+    if (req.body.nom == "")
         var nom = req.session.usernom;
     else
         var nom = req.body.nom;
-    if(req.body.prenom == "")
+    if (req.body.prenom == "")
         var prenom = req.session.userprenom;
     else
         var prenom = req.body.prenom;
-    if(req.body.password == "")
+    if (req.body.password == "")
         var password = req.session.userpassword;
     else
         var password = req.body.password;
@@ -144,9 +162,10 @@ module.exports.modif = function (req, res) {
 
 module.exports.adminUser = function (req, res) {
     sequelize.query("SELECT * FROM `clients`", {type: sequelize.QueryTypes.SELECT})
-        .then(function(listeClients){
+        .then(function (listeClients) {
             res.render("user", {req: req, listeClients: listeClients});
-})};
+        })
+};
 
 module.exports.modifierUser = function (req, res) {
     var emailClient = req.body.emailClient;
@@ -164,19 +183,19 @@ module.exports.modifierUser = function (req, res) {
 
         req.session.userrank = client.dataValues.rank;
     });
-    if(req.body.email == "")
+    if (req.body.email == "")
         var email = req.session.usermail;
     else
         var email = req.body.email;
-    if(req.body.nom == "")
+    if (req.body.nom == "")
         var nom = req.session.usernom;
     else
         var nom = req.body.nom;
-    if(req.body.prenom == "")
+    if (req.body.prenom == "")
         var prenom = req.session.userprenom;
     else
         var prenom = req.body.prenom;
-    if(req.body.password == "")
+    if (req.body.password == "")
         var password = req.session.userpassword;
     else
         var password = req.body.password;
@@ -191,7 +210,7 @@ module.exports.modifierUser = function (req, res) {
             where: {
                 email: emailClient
             }
-        }).then(function(client){
+        }).then(function (client) {
         res.render("admin");
     });
 };
