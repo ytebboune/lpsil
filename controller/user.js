@@ -42,7 +42,7 @@ module.exports.login = function (req, res) {
         }
     }).then(function (client) {
         if(!client){
-            res.render('error', {title: 'error', error: 'Mauvais login/mdp'});
+            res.render('error', {title: 'error', error: 'Mauvais login/mdp', error2 : "Reconnectez vous et saisissez une bonne fois pour toute des identifiants corrects !"});
         } else {
         console.log('', client);
             req.session.clientid=client.dataValues.id;
@@ -58,11 +58,9 @@ module.exports.login = function (req, res) {
         res.cookie( "nom",req.session.clientprenom ,{ maxAge: 1000 * 60 * 10, httpOnly: false });
         res.cookie( "mail",req.session.clientmail ,{ maxAge: 1000 * 60 * 10, httpOnly: false });
 
-        if(!client){
-            res.render('error', {title: 'error', error: 'Mauvais login/mdp', error2 : "Reconnectez vous et saisissez une bonne fois pour toute des identifiants corrects !"});
-        } else {
+
             res.redirect('index');
-        }
+
     }}).catch(function (error) {
         res.render('error', {title: 'error', error: 'Mauvais login/mdp', error2 : "Reconnectez vous et saisissez une bonne fois pour toute des identifiants corrects !"});
     });
