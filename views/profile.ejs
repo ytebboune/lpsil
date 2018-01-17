@@ -1,27 +1,28 @@
 <% var title = 'Compte' %>
 <% include head %>
+<div class="container">
+<div class="login-form"><!--login form-->
 <form method="post" action="/modifProfil">
     <input type="hidden" id="idC" name="id"/>
-    <p>
-    <label>Email:</label>
-    <input type="text" id="mailC" name="email"/>
-    </p>
-    <p>
-    <label>Nom:</label>
-    <input type="text" id="nomC" name="nom"/>
-    </p>
-    <p>
-    <label>Prenom:</label>
-    <input type="text" id="prenomC" name="prenom"/>
-    </p>
-    <p>
-    <label>Nouveau mot de passe :</label>
-    <input type="password" id="passwordC" name="password"/>
-    </p>
-        <p>
-    <input type="submit" value="Changer les informations">
-    </p>
+    <h4 style="text-align : center; color:#c0c0c0;"> Email : </h4>
+    <input style="display: block; margin : auto; width:50%; text-align:center;" type="text" id="mailC" name="email" disabled/>
+    <br/>
+
+    <h4 style="text-align : center; color:#c0c0c0;"> Nom : </h4>
+    <input style="display: block; margin : auto; width:50%; text-align:center;" type="text" id="nomC" name="nom"/>
+    <br/>
+    <h4 style="text-align : center; color:#c0c0c0;"> Prenom : </h4>
+    <input style="display: block; margin : auto; width:50%; text-align:center;" type="text" id="prenomC" name="prenom"/>
+    <br/>
+
+    <h4 style="text-align : center; color:#c0c0c0;">Nouveau mot de passe :</h4>
+    <input style="display: block; margin : auto; width:50%; text-align:center;" type="password" id="passwordC" name="password"/>
+    <br/>
+    <button style="display: block; margin : auto; width:50%; text-align:center;" type="submit" value="Changer les informations">Changer les informations</button>
+
 </form>
+</div>
+</div>
 
 <script>
     if(document.cookie) {
