@@ -24,10 +24,9 @@ app.use(session({
     secret: 'keyboard cat',
     resave: false,
     saveUninitialized: true,
-    cookie: {
-        secure: true
-    }
+    cookie: { secure: true }
 }));
+
 logger.info('server start');
 
 app.get('/', function(req, res){
@@ -38,9 +37,7 @@ app.get('/login', function(req, res){
     res.render('login');
 });
 
-app.get('/index', function(req, res){
-    res.render('index');
-});
+app.get('/index', produitController.getProducts);
 
 app.get('/profile', function(req, res){
     res.render('profile');
@@ -57,6 +54,8 @@ app.get('/register', function(req, res){
 app.get('/ping', function(req, res){
     res.send('Salut tout le monde !');
 });
+
+app.get('/disconnect', userController.disconnect);
 
 app.post('/create', userController.inscription);
 app.post('/loginVerif', userController.login);

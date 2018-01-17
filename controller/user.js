@@ -4,27 +4,28 @@ module.exports.inscription = function (req, res) {
     var password = req.body.password;
     var nom = req.body.nom;
     var prenom = req.body.prenom;
-    if(req.body.email == 'yacine.tebboune@etu.unice.fr')
+    if (req.body.email == 'yacine.tebboune@etu.unice.fr')
         var rank = 1;
     else
         var rank = 0;
+    if (email != null && password != null) {
+        client.create({
+            email: email,
+            nom: nom,
+            prenom: prenom,
+            password: password,
+            rank: rank
+        }).then(function (clients) {
+            if (email == '' || password == '')
+                throw new Error('Veuillez renseigner une e-mail');
+            console.log('Data successfully inserted', clients);
+            res.render('index', {title: 'index', name: email, req : client});
 
-    client.create({
-        email: email,
-        nom : nom,
-        prenom : prenom,
-        password: password,
-        rank: rank
-    }).then(function (clients) {
-        if (email == '' || password == '')
-            throw new Error('Veuillez renseigner une e-mail');
-        console.log('Data successfully inserted', clients);
-        res.render('index', {title: 'index', name: email});
-
-    }).catch(function (error) {
-        console.log('Error in Inserting Record', error);
-        res.render('error', {title: 'error', error: error});
-    });
+        }).catch(function (error) {
+            console.log('Error in Inserting Record', error);
+            res.render('error', {title: 'error', error: error});
+        });
+    }
 };
 module.exports.login = function (req, res) {
     var email = req.body.email;
@@ -36,12 +37,16 @@ module.exports.login = function (req, res) {
             password: password
         }
     }).then(function (client) {
+        if(!client){
+            res.render('error', {title: 'error', error: 'Mauvais login/mdp'});
+        } else {
         console.log('', client);
-        req.session.clientid=client.dataValues.id;
-        req.session.clientmail=client.dataValues.email;
-        req.session.clientnom=client.dataValues.nom;
-        req.session.clientprenom=client.dataValues.prenom;
-        req.session.clientrank = client.dataValues.rank;
+            req.session.clientid=client.dataValues.id;
+            req.session.clientmail=client.dataValues.email;
+            req.session.clientnom=client.dataValues.nom;
+            req.session.clientprenom=client.dataValues.prenom;
+            req.session.clientrank = client.dataValues.rank;
+
         console.log(req.session.client);
         res.cookie( "id",req.session.clientid ,{ maxAge: 1000 * 60 * 10, httpOnly: false });
         res.cookie( "rank",req.session.clientrank ,{ maxAge: 1000 * 60 * 10, httpOnly: false });
@@ -49,10 +54,8 @@ module.exports.login = function (req, res) {
         res.cookie( "nom",req.session.clientprenom ,{ maxAge: 1000 * 60 * 10, httpOnly: false });
         res.cookie( "mail",req.session.clientmail ,{ maxAge: 1000 * 60 * 10, httpOnly: false });
 
-        if(!client){
-            res.render('error', {title: 'error', error: 'Mauvais login/mdp'});
-        } else {
-            res.render('index', {title: 'index', name: email});
+
+            res.redirect('index');
         }
 
 
@@ -63,7 +66,7 @@ module.exports.login = function (req, res) {
 };
 
 module.exports.admin = function (req, res) {
-    res.render('pannel');
+        res.render('pannel', {req : req});
 };
 
 module.exports.modif = function(req, res){
@@ -88,3 +91,11 @@ module.exports.modif = function(req, res){
     };
 
 
+module.exports.disconnect = function(req, res){
+    res.clearCookie('id');
+    res.clearCookie('rank');
+    res.clearCookie('nom');
+    res.clearCookie('prenom');
+    res.clearCookie('mail');
+    res.render('disconnect');
+}

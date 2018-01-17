@@ -19,6 +19,13 @@ $(document).ready(function(){
         $(".prof").show();
     }
 
+    $('.disconnect').hide();
+    if(gcookie('id'))
+        $(".disconnect").show();
+    $('.dropdown').show();
+    if(gcookie('id'))
+        $(".dropdown").hide();
+
     $(function () {
 		$.scrollUp({
 	        scrollName: 'scrollUp', // Element ID

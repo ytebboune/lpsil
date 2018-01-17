@@ -1,5 +1,6 @@
 
 var produit = require("../model/produit.js")
+var sequelize = require('../db.js');
 
 module.exports.ajouterProduit = function (req, res) {
     var nomProduit = req.body.nomProduit;
@@ -30,14 +31,19 @@ module.exports.supprimerProduit = function (req, res) {
         if (idProduit == null )
             throw new Error('Veuillez renseigner un produit zfefiofgejiofgemjkorgergejiorgejiorgejjio');
         console.log('Data successfully inserted', produit);
-        res.render('pannel', {title: '', name: 'Produit ajouté'});
+        res.render('pannel', {title: '', name: 'Produit ajouté', req : req});
     }).catch(function (error) {
         console.log('Error in Inserting Record', error);
         res.render('error', {title: 'error', error: error});
     });
 };
 
-module.exports.listerProduits = function(req, res){
-    var listeProduits = produit.findAll();
-}
 
+
+module.exports.getProducts = function(req,res) {
+
+    sequelize.query("SELECT * FROM `produits`", {type: sequelize.QueryTypes.SELECT})
+        .then(function(listeProduit) {
+        res.render("index", {req: req, listeProduit: listeProduit});
+});
+}
