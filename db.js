@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 const sequelize = new Sequelize({
-    dialect: 'mysql',
+    dialect: 'postgre',
     database: 'ecommerce',
     username: 'root',
     password: 'root',
