@@ -4,6 +4,13 @@
 <div class="container">
     <div class="login-form"><!--login form-->
         <form method="post" action="/pannelModifyUser">
+            <select style="text-align : center; color:#c0c0c0;" name="nomProduit" >
+                <% listeClients.forEach(function(client){ %>
+                <option>
+                    <%= client.email %>
+                </option>
+                <% }); %>
+            </select>
             <h2 style="color: #ffb90f; text-align : center;">Modifier données utilisateur</h2>
             <h4 style="text-align : center; color:#c0c0c0;"> Email de l'utilisateur : </h4>
             <input style="display: block; margin : auto; width:50%;"  type="email" name="nomProduit">

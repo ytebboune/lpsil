@@ -1,4 +1,7 @@
 var client = require("../model/user.js");
+var produit = require("../model/produit.js");
+var sequelize = require('../db.js');
+
 module.exports.inscription = function (req, res) {
     var email = req.body.email;
     var password = req.body.password;
@@ -41,36 +44,51 @@ module.exports.login = function (req, res) {
             password: password
         }
     }).then(function (client) {
-        if(!client){
-            res.render('error', {title: 'error', error: 'Mauvais login/mdp', error2 : "Reconnectez vous et saisissez une bonne fois pour toute des identifiants corrects !"});
+        if (!client) {
+            res.render('error', {
+                title: 'error',
+                error: 'Mauvais login/mdp',
+                error2: "Reconnectez vous et saisissez une bonne fois pour toute des identifiants corrects !"
+            });
         } else {
-        console.log('', client);
-            req.session.clientid=client.dataValues.id;
-            req.session.clientmail=client.dataValues.email;
-            req.session.clientnom=client.dataValues.nom;
-            req.session.clientprenom=client.dataValues.prenom;
+            console.log('', client);
+            req.session.clientid = client.dataValues.id;
+            req.session.clientmail = client.dataValues.email;
+            req.session.clientnom = client.dataValues.nom;
+            req.session.clientprenom = client.dataValues.prenom;
             req.session.clientrank = client.dataValues.rank;
 
-        console.log(req.session.client);
-        res.cookie( "id",req.session.clientid ,{ maxAge: 1000 * 60 * 10, httpOnly: false });
-        res.cookie( "rank",req.session.clientrank ,{ maxAge: 1000 * 60 * 10, httpOnly: false });
-        res.cookie( "prenom",req.session.clientnom ,{ maxAge: 1000 * 60 * 10, httpOnly: false });
-        res.cookie( "nom",req.session.clientprenom ,{ maxAge: 1000 * 60 * 10, httpOnly: false });
-        res.cookie( "mail",req.session.clientmail ,{ maxAge: 1000 * 60 * 10, httpOnly: false });
+            console.log(req.session.client);
+            res.cookie("id", req.session.clientid, {maxAge: 1000 * 60 * 10, httpOnly: false});
+            res.cookie("rank", req.session.clientrank, {maxAge: 1000 * 60 * 10, httpOnly: false});
+            res.cookie("prenom", req.session.clientnom, {maxAge: 1000 * 60 * 10, httpOnly: false});
+            res.cookie("nom", req.session.clientprenom, {maxAge: 1000 * 60 * 10, httpOnly: false});
+            res.cookie("mail", req.session.clientmail, {maxAge: 1000 * 60 * 10, httpOnly: false});
 
 
             res.redirect('index');
 
-    }}).catch(function (error) {
-        res.render('error', {title: 'error', error: 'Mauvais login/mdp', error2 : "Reconnectez vous et saisissez une bonne fois pour toute des identifiants corrects !"});
+        }
+    }).catch(function (error) {
+        res.render('error', {
+            title: 'error',
+            error: 'Mauvais login/mdp',
+            error2: "Reconnectez vous et saisissez une bonne fois pour toute des identifiants corrects !"
+        });
     });
 };
 
 module.exports.admin = function (req, res) {
-        res.render('pannel', {req : req});
+    sequelize.query("SELECT * FROM `produits`", {type: sequelize.QueryTypes.SELECT})
+        .then(function(listeProduit) {
+            res.render("pannel", {req: req, listeProduit: listeProduit});
+        });
+    // sequelize.query("SELECT * FROM `clients`", {type: sequelize.QueryTypes.SELECT})
+    //     .then(function(listeClients){
+    //         res.render("pannel", {req: req, listeProduit: listeProduit, listeClients: listeClients});
 };
 
-module.exports.modif = function(req, res){
+module.exports.modif = function (req, res) {
     var email = req.body.email;
     var nom = req.body.nom;
     var prenom = req.body.prenom;
@@ -78,36 +96,38 @@ module.exports.modif = function(req, res){
     var id = req.body.id;
 
     client.update({
-        email : email,
-        password : password,
-        nom : nom,
-        prenom : prenom
-    },
-        {
-        where : {
-            id : id
-        }}).then(function(client){
-            res.render('profile');
-        })
-    };
-
-module.exports.adminUser = function(req, res){
-    var email = req.body.email;
-    var nom = req.body.nom;
-    var prenom = req.body.prenom;
-    var password = req.body.password;
-    var id = req.body.id;
-
-    client.update({
-            email : email,
-            password : password,
-            nom : nom,
-            prenom : prenom
+            email: email,
+            password: password,
+            nom: nom,
+            prenom: prenom
         },
         {
-            where : {
-                id : id
-            }}).then(function(client){
+            where: {
+                id: id
+            }
+        }).then(function (client) {
+        res.render('profile');
+    })
+};
+
+module.exports.adminUser = function (req, res) {
+    var email = req.body.email;
+    var nom = req.body.nom;
+    var prenom = req.body.prenom;
+    var password = req.body.password;
+    var id = req.body.id;
+
+    client.update({
+            email: email,
+            password: password,
+            nom: nom,
+            prenom: prenom
+        },
+        {
+            where: {
+                id: id
+            }
+        }).then(function (client) {
         res.render('user');
     })
 };
@@ -123,18 +143,18 @@ module.exports.modifierUser = function (req, res) {
         nom: nom,
         prenom: prenom,
         password: password
-/*    }).then(function (clients) {
-        if (nomProduit == '' || prixProduit == null)
-            throw new Error('Veuillez renseigner un produit.');
-        console.log('Data successfully inserted', produits);
-        res.render('pannel', {title: '', name: 'Produit ajouté'});
-    }).catch(function (error) {
-        console.log('Error in Inserting Record', error);
-        res.render('error', {title: 'error', error: error});*/
+        /*    }).then(function (clients) {
+                if (nomProduit == '' || prixProduit == null)
+                    throw new Error('Veuillez renseigner un produit.');
+                console.log('Data successfully inserted', produits);
+                res.render('pannel', {title: '', name: 'Produit ajouté'});
+            }).catch(function (error) {
+                console.log('Error in Inserting Record', error);
+                res.render('error', {title: 'error', error: error});*/
     })
 };
 
-module.exports.disconnect = function(req, res){
+module.exports.disconnect = function (req, res) {
     res.clearCookie('id');
     res.clearCookie('rank');
     res.clearCookie('nom');

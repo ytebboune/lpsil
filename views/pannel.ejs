@@ -1,10 +1,5 @@
 <% var title = 'Pannel administration' %>
 <% include head %>
-<script>
-    if(gcookie("rank")==1){
-        alert("ranked");
-    }
-</script>
 
 <div class="container">
    <div class="login-form"><!--login form-->
@@ -21,9 +16,14 @@
         </form>
         <form method="post" action="/pannelDelProduct">
             <h2 style="color: #ffb90f; text-align : center;">Supprimer un produit</h2>
-            <h2 style="text-align : center; color:#c0c0c0;">Identifiant du produit :</h2>
-            <input style="display: block; margin : auto; width:50%;" type="number" name="idProduit">
-            <br/>
+            <select style="text-align : center; color:#c0c0c0;" name="nomProduit" >
+            <% listeProduit.forEach(function(produit){ %>
+                <option>
+                    <%= produit.nomProduit %>
+                </option>
+            <% }); %>
+            </select>
+            <br/><br/>
             <button style="display: block; margin : auto; width:20%;" type="submit" value="Supprimer">Supprimer</button>
             <br/>
         </form>

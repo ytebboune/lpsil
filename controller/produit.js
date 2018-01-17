@@ -13,29 +13,30 @@ module.exports.ajouterProduit = function (req, res) {
         if (nomProduit == '' || prixProduit == null)
             throw new Error('Veuillez renseigner un produit.');
         console.log('Data successfully inserted', produits);
-        res.render('pannel', {title: '', name: 'Produit ajouté'});
+        res.redirect('admin');
     }).catch(function (error) {
-        console.log('Error in Inserting Record', error);
-        res.render('error', {title: 'error', error: error});
+        res.redirect('error');
     });
 };
 
 module.exports.supprimerProduit = function (req, res) {
-    var idProduit = req.body.idProduit;
+        var nomProduit = req.body.nomProduit;
 
     produit.destroy({
         where: {
-            id: idProduit
+            nomProduit: nomProduit
         }
     }).then(function (produit) {
-        if (idProduit == null )
-            throw new Error('Veuillez renseigner un produit zfefiofgejiofgemjkorgergejiorgejiorgejjio');
+        if (nomProduit == null )
+            throw new Error('Veuillez renseigner un produit');
         console.log('Data successfully inserted', produit);
-        res.render('pannel', {title: '', name: 'Produit ajouté', req : req});
+        res.redirect('admin');
     }).catch(function (error) {
-        console.log('Error in Inserting Record', error);
-        res.render('error', {title: 'error', error: error});
-    });
+        res.render('error', {
+            title: 'error',
+            error: 'Mauvaise insertion de produit',
+            error2: "Réessayez avec un nom de produit et un prix valide !"
+        });    });
 };
 
 
