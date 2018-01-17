@@ -3,6 +3,7 @@ var produit = require("../model/produit.js");
 var sequelize = require('../db.js');
 
 module.exports.inscription = function (req, res) {
+    var alreadyUsed;
     var email = req.body.email;
     var password = req.body.password;
     var nom = req.body.nom;
@@ -11,7 +12,15 @@ module.exports.inscription = function (req, res) {
         var rank = 1;
     else
         var rank = 0;
-    if (email != null && password != null) {
+    client.findOne({
+        where: {
+            email: email
+        }
+    }).then(function (){
+        alreadyUsed = true;
+    });
+    if (email != '' && password != '' && !alreadyUsed) {
+
         client.create({
             email: email,
             nom: nom,
@@ -22,7 +31,7 @@ module.exports.inscription = function (req, res) {
             if (email == '' || password == '')
                 throw new Error('Veuillez renseigner les informations');
             console.log('Data successfully inserted', clients);
-            res.render('index', {title: 'index', name: email});
+            res.redirect('index');
 
         }).catch(function (error) {
             console.log('Error in Inserting Record', error);
@@ -83,17 +92,40 @@ module.exports.admin = function (req, res) {
         .then(function(listeProduit) {
             res.render("pannel", {req: req, listeProduit: listeProduit});
         });
-    // sequelize.query("SELECT * FROM `clients`", {type: sequelize.QueryTypes.SELECT})
-    //     .then(function(listeClients){
-    //         res.render("pannel", {req: req, listeProduit: listeProduit, listeClients: listeClients});
+
 };
 
 module.exports.modif = function (req, res) {
-    var email = req.body.email;
-    var nom = req.body.nom;
-    var prenom = req.body.prenom;
-    var password = req.body.password;
     var id = req.body.id;
+    client.findOne({
+        where: {
+            id: id
+        }
+    }).then(function (client) {
+        req.session.userid = client.dataValues.id;
+        req.session.usermail = client.dataValues.email;
+        req.session.usernom = client.dataValues.nom;
+        req.session.userprenom = client.dataValues.prenom;
+        req.session.userpassword = client.dataValues.password;
+
+        req.session.userrank = client.dataValues.rank;
+    });
+    if(req.body.email == "")
+        var email = req.session.usermail;
+    else
+        var email = req.body.email;
+    if(req.body.nom == "")
+        var nom = req.session.usernom;
+    else
+        var nom = req.body.nom;
+    if(req.body.prenom == "")
+        var prenom = req.session.userprenom;
+    else
+        var prenom = req.body.prenom;
+    if(req.body.password == "")
+        var password = req.session.userpassword;
+    else
+        var password = req.body.password;
 
     client.update({
             email: email,
@@ -111,47 +143,57 @@ module.exports.modif = function (req, res) {
 };
 
 module.exports.adminUser = function (req, res) {
-    var email = req.body.email;
-    var nom = req.body.nom;
-    var prenom = req.body.prenom;
-    var password = req.body.password;
-    var id = req.body.id;
+    sequelize.query("SELECT * FROM `clients`", {type: sequelize.QueryTypes.SELECT})
+        .then(function(listeClients){
+            res.render("user", {req: req, listeClients: listeClients});
+})};
+
+module.exports.modifierUser = function (req, res) {
+    var emailClient = req.body.emailClient;
+
+    client.findOne({
+        where: {
+            email: email
+        }
+    }).then(function (client) {
+        req.session.userid = client.dataValues.id;
+        req.session.usermail = client.dataValues.email;
+        req.session.usernom = client.dataValues.nom;
+        req.session.userprenom = client.dataValues.prenom;
+        req.session.userpassword = client.dataValues.password;
+
+        req.session.userrank = client.dataValues.rank;
+    });
+    if(req.body.email == "")
+        var email = req.session.usermail;
+    else
+        var email = req.body.email;
+    if(req.body.nom == "")
+        var nom = req.session.usernom;
+    else
+        var nom = req.body.nom;
+    if(req.body.prenom == "")
+        var prenom = req.session.userprenom;
+    else
+        var prenom = req.body.prenom;
+    if(req.body.password == "")
+        var password = req.session.userpassword;
+    else
+        var password = req.body.password;
 
     client.update({
             email: email,
-            password: password,
             nom: nom,
-            prenom: prenom
+            prenom: prenom,
+            password: password
         },
         {
             where: {
-                id: id
+                email: emailClient
             }
-        }).then(function (client) {
-        res.render('user');
-    })
-};
-
-module.exports.modifierUser = function (req, res) {
-    var email = req.body.email;
-    var nom = req.body.nom;
-    var prenom = req.body.prenom;
-    var password = req.body.password;
-
-    client.update({
-        email: email,
-        nom: nom,
-        prenom: prenom,
-        password: password
-        /*    }).then(function (clients) {
-                if (nomProduit == '' || prixProduit == null)
-                    throw new Error('Veuillez renseigner un produit.');
-                console.log('Data successfully inserted', produits);
-                res.render('pannel', {title: '', name: 'Produit ajouté'});
-            }).catch(function (error) {
-                console.log('Error in Inserting Record', error);
-                res.render('error', {title: 'error', error: error});*/
-    })
+        }).then(function(client){
+        res.render("admin");
+    });
 };
 
 module.exports.disconnect = function (req, res) {

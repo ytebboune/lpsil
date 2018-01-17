@@ -4,7 +4,7 @@
 <div class="container">
     <div class="login-form"><!--login form-->
         <form method="post" action="/pannelModifyUser">
-            <select style="text-align : center; color:#c0c0c0;" name="nomProduit" >
+            <select style="text-align : center; color:#c0c0c0;" name="emailClient" >
                 <% listeClients.forEach(function(client){ %>
                 <option>
                     <%= client.email %>
@@ -13,23 +13,23 @@
             </select>
             <h2 style="color: #ffb90f; text-align : center;">Modifier données utilisateur</h2>
             <h4 style="text-align : center; color:#c0c0c0;"> Email de l'utilisateur : </h4>
-            <input style="display: block; margin : auto; width:50%;"  type="email" name="nomProduit">
+            <input style="display: block; margin : auto; width:50%;"  type="email" name="email">
             <br/>
             <h4 style="text-align : center; color:#c0c0c0;"> Nom de l'utilisateur : </h4>
-            <input style="display: block; margin : auto; width:50%;" type="text" name="prixProduit">
+            <input style="display: block; margin : auto; width:50%;" type="text" name="nom">
             <br/>
             <h4 style="text-align : center; color:#c0c0c0;"> Prenom de l'utilisateur : </h4>
-            <input style="display: block; margin : auto; width:50%;" type="text" name="prixProduit">
+            <input style="display: block; margin : auto; width:50%;" type="text" name="prenom">
             <br/>
             <h4 style="text-align : center; color:#c0c0c0;"> Mot de passe de l'utilisateur : </h4>
-            <input style="display: block; margin : auto; width:50%;" type="password" name="prixProduit">
+            <input style="display: block; margin : auto; width:50%;" type="password" name="password">
             <br/>
             <button style="display: block; margin : auto; width:20%;" type="submit">Modifier données</button>
             <br/><br/>
         </form>
         <form method="post" action="/pannelDelProduct">
             <h2 style="color: #ffb90f; text-align : center;">Supprimer un utilisateur</h2>
-            <h4 style="text-align : center; color:#c0c0c0;">Identifiant de l'utilisateur :</h2>
+            <h2 style="text-align : center; color:#c0c0c0;">Identifiant de l'utilisateur :</h2>
                 <input style="display: block; margin : auto; width:50%;" type="number" name="idProduit">
                 <br/>
                 <button style="display: block; margin : auto; width:20%;" type="submit" value="Supprimer">Supprimer</button>
