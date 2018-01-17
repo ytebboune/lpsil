@@ -4,13 +4,6 @@
 <div class="container">
     <div class="login-form"><!--login form-->
         <form method="post" action="/pannelModifyUser">
-            <select style="text-align : center; color:#c0c0c0;" name="emailClient" >
-                <% listeClients.forEach(function(client){ %>
-                <option>
-                    <%= client.email %>
-                </option>
-                <% }); %>
-            </select>
             <h2 style="color: #ffb90f; text-align : center;">Modifier données utilisateur</h2>
             <h4 style="text-align : center; color:#c0c0c0;"> Email de l'utilisateur : </h4>
             <input style="display: block; margin : auto; width:50%;"  type="email" name="email">
@@ -27,13 +20,18 @@
             <button style="display: block; margin : auto; width:20%;" type="submit">Modifier données</button>
             <br/><br/>
         </form>
-        <form method="post" action="/pannelDelProduct">
+        <form method="post" action="/pannelDelUser">
             <h2 style="color: #ffb90f; text-align : center;">Supprimer un utilisateur</h2>
-            <h2 style="text-align : center; color:#c0c0c0;">Identifiant de l'utilisateur :</h2>
-                <input style="display: block; margin : auto; width:50%;" type="number" name="idProduit">
-                <br/>
-                <button style="display: block; margin : auto; width:20%;" type="submit" value="Supprimer">Supprimer</button>
-                <br/>
+            <select style="display: block; margin : auto; width:50%;" name="emailClient" >
+                <% listeClients.forEach(function(client){ %>
+                <option>
+                    <%= client.email %>
+                </option>
+                <% }); %>
+            </select>
+            <br/>
+            <button style="display: block; margin : auto; width:20%;" type="submit" value="Supprimer">Supprimer</button>
+            <br/>
         </form>
     </div>
 </div>

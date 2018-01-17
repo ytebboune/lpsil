@@ -215,6 +215,23 @@ module.exports.modifierUser = function (req, res) {
     });
 };
 
+module.exports.supprimerUser = function (req, res) {
+    var emailClient = req.body.emailClient;
+
+    client.destroy({
+        where: {
+            email: emailClient
+        }
+    }).then(function (client) {
+        if (emailClient == null )
+            throw new Error('Veuillez renseigner un client');
+        console.log('Data successfully inserted', client);
+        res.render('admin');
+    }).catch(function (error) {
+        res.render('error', {title: 'error', error: 'Erreur de suppression d\'utilisateur', error2: "Réessayez en ayant selectionner un client"});
+    });
+};
+
 module.exports.disconnect = function (req, res) {
     res.clearCookie('id');
     res.clearCookie('rank');

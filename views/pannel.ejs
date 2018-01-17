@@ -16,7 +16,7 @@
         </form>
         <form method="post" action="/pannelDelProduct">
             <h2 style="color: #ffb90f; text-align : center;">Supprimer un produit</h2>
-            <select style="text-align : center; color:#c0c0c0;" name="nomProduit" >
+            <select style="display: block; margin : auto; width:50%;" name="nomProduit" >
             <% listeProduit.forEach(function(produit){ %>
                 <option>
                     <%= produit.nomProduit %>
