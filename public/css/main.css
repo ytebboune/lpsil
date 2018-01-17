@@ -239,6 +239,7 @@ a#scrollUp i{
 }
 
 .mainmenu ul li a {
+  
 	color: #696763;
 	font-family: 'Roboto', sans-serif;
 	font-size: 17px;
@@ -545,8 +546,12 @@ ul.sub-menu {
 }
 
 .footer-bottom {
+  position: fixed;
+  bottom:0;
+  width : 100%;
   background: #D6D6D0;
   padding-top: 10px;
+
 }
 
 .footer-bottom p {

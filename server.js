@@ -31,7 +31,7 @@ app.use(session({
 logger.info('server start');
 
 app.get('/', function(req, res){
-    res.redirect('/login');
+    res.redirect('/index');
 });
 
 app.get('/login', function(req, res){

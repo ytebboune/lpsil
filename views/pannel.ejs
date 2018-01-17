@@ -1,35 +1,29 @@
 <% var title = 'Pannel administration' %>
 <% include head %>
 
-<h1>Login</h1>
-Accés au <a href="/profile">/profil</a>
-<form method="post" action="/pannelAddProduct">
-    <p>
-        <label>Ajouter un produit :</label
-    </p>
-    <p>
-        <label> Nom du produit : </label>
-        <input type="text" name="nomProduit">
-    </p>
-        <label> Prix du produit :</label>
-        <input type="number" name="prixProduit">
-    </p>
-    <input type="submit" value="Ajouter le produit">
-</form>
 
-<p>
-    <form method="post" action="/pannelDelProduct">
-    <p>
-        <label>Supprimer un produit:</label>
-
-    </p>
-    <p>
-        <label> Identifiant du produit</label>
-        <input type="number" name="idProduit">
-    </p>
-    <p>
-        <input type="submit" value="Supprimer">
-    </p>
-</form>
+<div class="container">
+   <div class="login-form"><!--login form-->
+        <form method="post" action="/pannelAddProduct">
+            <h2 style="color: #ffb90f; text-align : center;">Ajouter un produit</h2>
+            <h4 style="text-align : center; color:#c0c0c0;"> Nom du produit : </h4>
+            <input style="display: block; margin : auto; width:50%;"  type="text" name="nomProduit">
+            <br/>
+            <h4 style="text-align : center; color:#c0c0c0;"> Prix du produit : </h4>
+            <input style="display: block; margin : auto; width:50%;" type="number" name="prixProduit">
+            <br/>
+            <button style="display: block; margin : auto; width:20%;" type="submit" value="Ajouter le produit">Ajouter le produit</button>
+            <br/><br/>
+        </form>
+        <form method="post" action="/pannelDelProduct">
+            <h2 style="color: #ffb90f; text-align : center;">Supprimer un produit</h2>
+            <h4 style="text-align : center; color:#c0c0c0;">Identifiant du produit :</h2>
+            <input style="display: block; margin : auto; width:50%;" type="number" name="idProduit">
+            <br/>
+            <button style="display: block; margin : auto; width:20%;" type="submit" value="Supprimer">Supprimer</button>
+            <br/>
+        </form>
+    </div>
+</div>
 
 <% include foot %>
