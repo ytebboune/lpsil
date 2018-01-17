@@ -14,11 +14,11 @@
               "jquery": "^3.2.1",
               "jsdom": "^11.5.1",
               "log4js": "^0.6.29",
-              "mocha": "^4.0.1",
+              "mocha": "^4.1.0",
               "morgan": "^1.6.1",
               "mysql": "^2.15.0",
               "mysql2": "^1.5.1",
-              "sequelize": "^4.31.0",
+              "sequelize": "^4.31.2",
               "serve-favicon": "^2.3.0"
        },
        "author": "Mail <anthony.piquard@etu.unice.fr>",

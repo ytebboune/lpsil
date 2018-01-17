@@ -31,7 +31,7 @@ app.use(session({
 logger.info('server start');
 
 app.get('/', function(req, res){
-    res.redirect('/login');
+    res.redirect('/index');
 });
 
 app.get('/login', function(req, res){
@@ -63,5 +63,6 @@ app.post('/loginVerif', userController.login);
 app.post('/adminVerif', userController.admin);
 app.post('/pannelAddProduct', produitController.ajouterProduit);
 app.post('/pannelDelProduct', produitController.supprimerProduit);
+app.post('/modifProfil', userController.modif);
 
 app.listen(process.env.PORT||1313);
