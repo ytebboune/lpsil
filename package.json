@@ -18,7 +18,9 @@
               "morgan": "^1.6.1",
               "mysql": "^2.15.0",
               "mysql2": "^1.5.1",
+              "pg": "^7.4.1",
               "sequelize": "^4.31.2",
+              "sequelize-heroku": "^1.0.0",
               "serve-favicon": "^2.3.0"
        },
        "author": "Mail <anthony.piquard@etu.unice.fr>",
