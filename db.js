@@ -12,9 +12,10 @@ const Sequelize = require('sequelize');
 // });
 const sequelize = new Sequelize({
     dialect: 'mysql',
-    database: 'localhost',
+    host: 'localhost',
+    database: 'ecommerce',
     username: 'root',
-    password: 'root'
+    password: ''
 });
 
 module.exports = sequelize;
